@@ -1,32 +1,28 @@
 # -*- coding:utf-8 -*-
 import math
 
+def calc_delta_meio(texto):
+    return (len(texto) - 1) / 2
+
 def eh_palindromo(texto):
     texto = texto.replace(" ", "")
     letras = list(texto)
+    tam = len(letras)
 
     # string vazia ou com 1 caracter
-    if len(letras) in [0, 1]:
+    if tam in [0, 1]:
         return True
 
     # Mais de 1 caracter
-    crescente = 0
-    decrescente = len(texto) -1
+    delta = 0
+    meio = calc_delta_meio(texto)
 
-    while True:
-        if texto[crescente] != texto[decrescente]:
+    while delta <= meio:
+        if texto[delta] != texto[tam - 1 - delta]:
             return False
 
-        crescente = crescente + 1
-        decrescente = decrescente - 1
+        delta = delta + 1
 
-        if (crescente == decrescente):
-            # Texto com numero par de caracteres. Ex: 1221
-            break
-
-        if math.fabs(decrescente - crescente) == 1:
-            # Texto com numero ímpar de caracteres. Ex: 12321
-            break
     return True
 
 
@@ -39,3 +35,7 @@ if __name__ == "__main__":
     print eh_palindromo("1"), True
     print eh_palindromo("12"), False
     print eh_palindromo("11"), True
+    #print calc_delta_meio("121"), 1
+    #print calc_delta_meio("1221"), 1
+    #print calc_delta_meio("12"), 0
+    #print calc_delta_meio("12321"), 2
